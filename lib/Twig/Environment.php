@@ -269,7 +269,6 @@ class Twig_Environment
 	public function getTemplateClass($name, $index = null)
 	{
 		$key = $this->getLoader()->getCacheKey($name) . $this->optionsHash;
-
 		return $this->templateClassPrefix . hash('sha256', $key) . (null === $index ? '' : '_' . $index);
 	}
 
@@ -966,6 +965,36 @@ class Twig_Environment
 			$this->baseTemplateClass,
 			(int) $this->strictVariables,
 		));
+	}
+
+	public function getLoadedTemplates()
+	{
+		return $this->loadedTemplates;
+	}
+
+	public function addLoadedTemplates($cls, $clsInited)
+	{
+		return $this->loadedTemplates[$cls] = $clsInited;
+	}
+
+	public function getExtensionSet()
+	{
+		return $this->extensionSet;
+	}
+
+	public function getLoading()
+	{
+		return $this->loading;
+	}
+
+	public function addLoading($cls, $name)
+	{
+		return $this->loading[$cls] = $name;
+	}
+
+	public function removeLoading($cls)
+	{
+		unset($this->loading[$cls]);
 	}
 
 }
